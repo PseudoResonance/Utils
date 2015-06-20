@@ -1,0 +1,72 @@
+name: Utils
+author: WolfLeader116
+main: io.github.wolfleader116.utils.Utils
+version: 1.0
+description: Utils plugin.
+depend: [WolfAPI]
+commands:
+  utils:
+    description: Main utils command.
+  spawnmob:
+    description: Spawnmob command.
+  tp:
+    description: Teleport command.
+  kick:
+    description: Player kick command.
+  ban:
+    description: Player ban command.
+  unban:
+    description: Player unban command.
+  mute:
+    description: Player mute command.
+  unmute:
+    description: Player unmute command.
+permissions:
+  utils.*:
+    description: Gives the player access to all utils features.
+    children:
+      utils.reset: true
+      utils.reload: true
+      utils.spawnmob: true
+      utils.tp: true
+      utils.kick: true
+      utils.kick.exempt: true
+      utils.kick.exempt.override: true
+      utils.ban: true
+      utils.unban: true
+      utils.ban.exempt: true
+      utils.ban.exempt.override: true
+      utils.mute: true
+      utils.unmute: true
+      utils.mute.exempt: true
+      utils.mute.exempt.override: true
+  utils.reset:
+    description: Allows the player to reset the config.
+  utils.reload:
+    description: Allows the player to reload the config.
+  utils.spawnmob:
+    description: Allows the player to spawn lots of mobs with a command.
+  utils.tp:
+    description: Allows the player to perform any teleportation.
+  utils.kick:
+    description: Allows the player to kick another player.
+  utils.kick.exempt:
+    description: Allows the player to have kick exempt permissions.
+  utils.kick.exempt.override:
+    description: Allows the player to override ban exempt permissions.
+  utils.ban:
+    description: Allows the player to ban another player.
+  utils.unban:
+    description: Allows the player to unban another player.
+  utils.ban.exempt:
+    description: Allows the player to have ban exempt permissions.
+  utils.ban.exempt.override:
+    description: Allows the player to override ban exempt permissions.
+  utils.mute:
+    description: Allows the player to mute another player.
+  utils.unmute:
+    description: Allows the player to unmute another player.
+  utils.mute.exempt:
+    description: Allows the player to have mute exempt permissions.
+  utils.mute.exempt.override:
+    description: Allows the player to override mute exempt permissions.
