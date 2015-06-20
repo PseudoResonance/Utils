@@ -29,13 +29,13 @@ public class KickC implements CommandExecutor {
 								if (p.hasPermission("utils.kick.exempt.override")) {
 									WolfAPI.message("Overriding " + Bukkit.getServer().getPlayer(args[0]).getName() + "'s kick exempt permissions!", p, "Utils");
 									WolfAPI.message("Kicked " + Bukkit.getServer().getPlayer(args[0]).getName() + "!", p, "Utils");
-									Bukkit.getServer().getPlayer(args[0]).kickPlayer(p.getName() + " §ahas kicked you!");
+									Bukkit.getServer().getPlayer(args[0]).kickPlayer(p.getName() + " Â§ahas kicked you!");
 								} else {
 									WolfAPI.message("Can't kick " + Bukkit.getServer().getPlayer(args[0]).getName() + " because they have kick exempt permissions!", p, "Utils");
 								}
 							} else {
 								WolfAPI.message("Kicked " + Bukkit.getServer().getPlayer(args[0]).getName() + "!", p, "Utils");
-								Bukkit.getServer().getPlayer(args[0]).kickPlayer(p.getName() + " §ahas kicked you!");
+								Bukkit.getServer().getPlayer(args[0]).kickPlayer(p.getName() + " Â§ahas kicked you!");
 							}
 						} else {
 							Errors.sendError(Errors.NOT_ONLINE, p, "Utils");
@@ -51,7 +51,7 @@ public class KickC implements CommandExecutor {
 									}
 									WolfAPI.message("Overriding " + Bukkit.getServer().getPlayer(args[0]).getName() + "'s kick exempt permissions!", p, "Utils");
 									WolfAPI.message("Kicked " + Bukkit.getServer().getPlayer(args[0]).getName() + " for " + ChatColor.WHITE + message + ChatColor.GREEN + "!", p, "Utils");
-									Bukkit.getServer().getPlayer(args[0]).kickPlayer(p.getName() + " §ahas kicked you for §f" + message);
+									Bukkit.getServer().getPlayer(args[0]).kickPlayer(p.getName() + " Â§ahas kicked you for Â§f" + message);
 								} else {
 									WolfAPI.message("Can't kick " + Bukkit.getServer().getPlayer(args[0]).getName() + " because they have kick exempt permissions!", p, "Utils");
 								}
@@ -62,7 +62,7 @@ public class KickC implements CommandExecutor {
 									message = message + arg;
 								}
 								WolfAPI.message("Kicked " + Bukkit.getServer().getPlayer(args[0]).getName() + " for " + ChatColor.WHITE + message + ChatColor.GREEN + "!", p, "Utils");
-								Bukkit.getServer().getPlayer(args[0]).kickPlayer(p.getName() + " §ahas kicked you for §f" + message);
+								Bukkit.getServer().getPlayer(args[0]).kickPlayer(p.getName() + " Â§ahas kicked you for Â§f" + message);
 							}
 						} else {
 							Errors.sendError(Errors.NOT_ONLINE, p, "Utils");
@@ -79,10 +79,10 @@ public class KickC implements CommandExecutor {
 						if (Bukkit.getServer().getPlayer(args[0]).hasPermission("utils.kick.exempt")) {
 							log.info("Overriding " + Bukkit.getServer().getPlayer(args[0]).getName() + "'s kick exempt permissions!");
 							log.info("Kicked " + Bukkit.getServer().getPlayer(args[0]).getName() + "!");
-							Bukkit.getServer().getPlayer(args[0]).kickPlayer("Console §ahas kicked you!");
+							Bukkit.getServer().getPlayer(args[0]).kickPlayer("Console Â§ahas kicked you!");
 						} else {
 							log.info("Kicked " + Bukkit.getServer().getPlayer(args[0]).getName() + "!");
-							Bukkit.getServer().getPlayer(args[0]).kickPlayer("Console §ahas kicked you!");
+							Bukkit.getServer().getPlayer(args[0]).kickPlayer("Console Â§ahas kicked you!");
 						}
 					} else {
 						log.info("That player is not online!");
@@ -97,7 +97,7 @@ public class KickC implements CommandExecutor {
 							}
 							log.info("Overriding " + Bukkit.getServer().getPlayer(args[0]).getName() + "'s kick exempt permissions!");
 							log.info("Kicked " + Bukkit.getServer().getPlayer(args[0]).getName() + " for " + message + "!");
-							Bukkit.getServer().getPlayer(args[0]).kickPlayer("Console §ahas kicked you for §f" + message);
+							Bukkit.getServer().getPlayer(args[0]).kickPlayer("Console Â§ahas kicked you for Â§f" + message);
 						} else {
 							String message = "";
 							for (int i = 1; i < args.length; i++) {
@@ -105,7 +105,7 @@ public class KickC implements CommandExecutor {
 								message = message + arg;
 							}
 							log.info("Kicked " + Bukkit.getServer().getPlayer(args[0]).getName() + " for " + message + "!");
-							Bukkit.getServer().getPlayer(args[0]).kickPlayer("Console §ahas kicked you for §f" + message);
+							Bukkit.getServer().getPlayer(args[0]).kickPlayer("Console Â§ahas kicked you for Â§f" + message);
 						}
 					} else {
 						log.info("That player is not online!");

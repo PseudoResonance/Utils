@@ -33,22 +33,22 @@ public class BanC implements CommandExecutor {
 								if (p.hasPermission("utils.ban.exempt.override")) {
 									WolfAPI.message("Overriding " + Bukkit.getServer().getPlayer(args[0]).getName() + "'s ban exempt permissions!", p, "Utils");
 									WolfAPI.message("Banned " + Bukkit.getServer().getPlayer(args[0]).getName() + "!", p, "Utils");
-									c.getConfig().set(Bukkit.getServer().getPlayer(args[0]).getUniqueId().toString(), p.getName() + " §ahas banned you!");
+									c.getConfig().set(Bukkit.getServer().getPlayer(args[0]).getUniqueId().toString(), p.getName() + " Â§ahas banned you!");
 									c.save();
-									Bukkit.getServer().getPlayer(args[0]).kickPlayer(p.getName() + " §ahas banned you!");
+									Bukkit.getServer().getPlayer(args[0]).kickPlayer(p.getName() + " Â§ahas banned you!");
 								} else {
 									WolfAPI.message("Can't ban " + Bukkit.getServer().getPlayer(args[0]).getName() + " because they have ban exempt permissions!", p, "Utils");
 								}
 							} else {
 								WolfAPI.message("Banned " + Bukkit.getServer().getPlayer(args[0]).getName() + "!", p, "Utils");
-								c.getConfig().set(Bukkit.getServer().getPlayer(args[0]).getUniqueId().toString(), p.getName() + " §ahas banned you!");
+								c.getConfig().set(Bukkit.getServer().getPlayer(args[0]).getUniqueId().toString(), p.getName() + " Â§ahas banned you!");
 								c.save();
-								Bukkit.getServer().getPlayer(args[0]).kickPlayer(p.getName() + " §ahas banned you!");
+								Bukkit.getServer().getPlayer(args[0]).kickPlayer(p.getName() + " Â§ahas banned you!");
 							}
 						} else {
 							if (data.getConfig().contains(args[0])) {
 								WolfAPI.message("Banned " + args[0] + "!", p, "Utils");
-								c.getConfig().set(data.getConfig().getString(args[0]), p.getName() + " §ahas banned you!");
+								c.getConfig().set(data.getConfig().getString(args[0]), p.getName() + " Â§ahas banned you!");
 								c.save();
 							} else {
 								Errors.sendError(Errors.NEVER_JOINED, p, "Utils");
@@ -65,9 +65,9 @@ public class BanC implements CommandExecutor {
 									}
 									WolfAPI.message("Overriding " + Bukkit.getServer().getPlayer(args[0]).getName() + "'s ban exempt permissions!", p, "Utils");
 									WolfAPI.message("Banned " + Bukkit.getServer().getPlayer(args[0]).getName() + " for " + ChatColor.WHITE + message + ChatColor.GREEN + "!", p, "Utils");
-									c.getConfig().set(Bukkit.getServer().getPlayer(args[0]).getUniqueId().toString(), p.getName() + " §ahas banned you for §f" + message);
+									c.getConfig().set(Bukkit.getServer().getPlayer(args[0]).getUniqueId().toString(), p.getName() + " Â§ahas banned you for Â§f" + message);
 									c.save();
-									Bukkit.getServer().getPlayer(args[0]).kickPlayer(p.getName() + " §ahas banned you for §f" + message);
+									Bukkit.getServer().getPlayer(args[0]).kickPlayer(p.getName() + " Â§ahas banned you for Â§f" + message);
 								} else {
 									WolfAPI.message("Can't ban " + Bukkit.getServer().getPlayer(args[0]).getName() + " because they have ban exempt permissions!", p, "Utils");
 								}
@@ -78,9 +78,9 @@ public class BanC implements CommandExecutor {
 									message = message + arg;
 								}
 								WolfAPI.message("Banned " + Bukkit.getServer().getPlayer(args[0]).getName() + " for " + ChatColor.WHITE + message + ChatColor.GREEN + "!", p, "Utils");
-								c.getConfig().set(Bukkit.getServer().getPlayer(args[0]).getUniqueId().toString(), p.getName() + " §ahas banned you for §f" + message);
+								c.getConfig().set(Bukkit.getServer().getPlayer(args[0]).getUniqueId().toString(), p.getName() + " Â§ahas banned you for Â§f" + message);
 								c.save();
-								Bukkit.getServer().getPlayer(args[0]).kickPlayer(p.getName() + " §ahas banned you for §f" + message);
+								Bukkit.getServer().getPlayer(args[0]).kickPlayer(p.getName() + " Â§ahas banned you for Â§f" + message);
 							}
 						} else {
 							if (data.getConfig().contains(args[0])) {
@@ -90,7 +90,7 @@ public class BanC implements CommandExecutor {
 									message = message + arg;
 								}
 								WolfAPI.message("Banned " + args[0] + " for " + ChatColor.WHITE + message + ChatColor.GREEN + "!", p, "Utils");
-								c.getConfig().set(data.getConfig().getString(args[0]), p.getName() + " §ahas banned you for §f" + message);
+								c.getConfig().set(data.getConfig().getString(args[0]), p.getName() + " Â§ahas banned you for Â§f" + message);
 								c.save();
 							} else {
 								Errors.sendError(Errors.NEVER_JOINED, p, "Utils");
@@ -108,19 +108,19 @@ public class BanC implements CommandExecutor {
 						if (Bukkit.getServer().getPlayer(args[0]).hasPermission("utils.ban.exempt")) {
 							log.info("Overriding " + Bukkit.getServer().getPlayer(args[0]).getName() + "'s ban exempt permissions!");
 							log.info("Banned " + Bukkit.getServer().getPlayer(args[0]).getName() + "!");
-							c.getConfig().set(Bukkit.getServer().getPlayer(args[0]).getUniqueId().toString(), "Console §ahas banned you!");
+							c.getConfig().set(Bukkit.getServer().getPlayer(args[0]).getUniqueId().toString(), "Console Â§ahas banned you!");
 							c.save();
-							Bukkit.getServer().getPlayer(args[0]).kickPlayer("Console §ahas banned you!");
+							Bukkit.getServer().getPlayer(args[0]).kickPlayer("Console Â§ahas banned you!");
 						} else {
 							log.info("Banned " + Bukkit.getServer().getPlayer(args[0]).getName() + "!");
-							c.getConfig().set(Bukkit.getServer().getPlayer(args[0]).getUniqueId().toString(), "Console §ahas banned you!");
+							c.getConfig().set(Bukkit.getServer().getPlayer(args[0]).getUniqueId().toString(), "Console Â§ahas banned you!");
 							c.save();
-							Bukkit.getServer().getPlayer(args[0]).kickPlayer("Console §ahas banned you!");
+							Bukkit.getServer().getPlayer(args[0]).kickPlayer("Console Â§ahas banned you!");
 						}
 					} else {
 						if (data.getConfig().contains(args[0])) {
 							log.info("Banned " + args[0] + "!");
-							c.getConfig().set(data.getConfig().getString(args[0]), "Console §ahas banned you!");
+							c.getConfig().set(data.getConfig().getString(args[0]), "Console Â§ahas banned you!");
 							c.save();
 						} else {
 							log.info("That player has never joined the server!");
@@ -136,9 +136,9 @@ public class BanC implements CommandExecutor {
 							}
 							log.info("Overriding " + Bukkit.getServer().getPlayer(args[0]).getName() + "'s ban exempt permissions!");
 							log.info("Banned " + Bukkit.getServer().getPlayer(args[0]).getName() + " for " + message + "!");
-							c.getConfig().set(Bukkit.getServer().getPlayer(args[0]).getUniqueId().toString(), "Console §ahas banned you for §f" + message);
+							c.getConfig().set(Bukkit.getServer().getPlayer(args[0]).getUniqueId().toString(), "Console Â§ahas banned you for Â§f" + message);
 							c.save();
-							Bukkit.getServer().getPlayer(args[0]).kickPlayer("Console §ahas banned you for §f" + message);
+							Bukkit.getServer().getPlayer(args[0]).kickPlayer("Console Â§ahas banned you for Â§f" + message);
 						} else {
 							String message = "";
 							for (int i = 1; i < args.length; i++) {
@@ -146,9 +146,9 @@ public class BanC implements CommandExecutor {
 								message = message + arg;
 							}
 							log.info("Banned " + Bukkit.getServer().getPlayer(args[0]).getName() + " for " + message + "!");
-							c.getConfig().set(Bukkit.getServer().getPlayer(args[0]).getUniqueId().toString(), "Console §ahas banned you for §f" + message);
+							c.getConfig().set(Bukkit.getServer().getPlayer(args[0]).getUniqueId().toString(), "Console Â§ahas banned you for Â§f" + message);
 							c.save();
-							Bukkit.getServer().getPlayer(args[0]).kickPlayer("Console §ahas banned you for §f" + message);
+							Bukkit.getServer().getPlayer(args[0]).kickPlayer("Console Â§ahas banned you for Â§f" + message);
 						}
 					} else {
 						if (data.getConfig().contains(args[0])) {
@@ -158,7 +158,7 @@ public class BanC implements CommandExecutor {
 								message = message + arg;
 							}
 							log.info("Banned " + args[0] + " for " + message + "!");
-							c.getConfig().set(data.getConfig().getString(args[0]), "Console §ahas banned you for §f" + message);
+							c.getConfig().set(data.getConfig().getString(args[0]), "Console Â§ahas banned you for Â§f" + message);
 							c.save();
 						} else {
 							log.info("That player has never joined the server!");
