@@ -17,7 +17,7 @@ public class KickC implements CommandExecutor {
 	private static final Logger log = Logger.getLogger("Minecraft");
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (cmd.getName() == "kick") {
+		if (cmd.getName().equalsIgnoreCase("kick")) {
 			if (sender instanceof Player) {
 				Player p = (Player) sender;
 				if (sender.hasPermission("utils.kick")) {

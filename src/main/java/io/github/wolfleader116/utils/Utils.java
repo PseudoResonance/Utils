@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import io.github.wolfleader116.utils.commands.BanC;
 import io.github.wolfleader116.utils.commands.KickC;
+import io.github.wolfleader116.utils.commands.MuteC;
 import io.github.wolfleader116.utils.commands.SpawnMobC;
 import io.github.wolfleader116.utils.commands.UtilsC;
 import io.github.wolfleader116.wolfapi.WolfAPI;
@@ -33,6 +34,8 @@ public class Utils extends JavaPlugin implements Listener {
 		getCommand("utils").setExecutor(new UtilsC());
 		getCommand("spawnmob").setExecutor(new SpawnMobC());
 		getCommand("kick").setExecutor(new KickC());
+		getCommand("mute").setExecutor(new MuteC());
+		getCommand("unmute").setExecutor(new MuteC());
 		getCommand("ban").setExecutor(new BanC());
 		getCommand("unban").setExecutor(new BanC());
 		getServer().getPluginManager().registerEvents(this, this);
