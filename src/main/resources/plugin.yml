@@ -1,9 +1,10 @@
 name: Utils
 author: WolfLeader116
 main: io.github.wolfleader116.utils.Utils
-version: 1.2.3
+version: 1.2.4
 description: Utils plugin.
-depend: [WolfAPI]
+depend: [WolfAPI,NoteBlockAPI]
+softdepend: [Settings,BarAPI,TitleManager]
 commands:
   utils:
     description: Main utils command.
