@@ -9,6 +9,10 @@ import io.github.wolfleader116.utils.commands.MuteC;
 import io.github.wolfleader116.utils.commands.SpawnMobC;
 import io.github.wolfleader116.utils.commands.UtilsC;
 import io.github.wolfleader116.wolfapi.WolfAPI;
+import io.github.wolfleader116.settings.Settings;
+import io.puharesource.mc.titlemanager.api.ActionbarTitleObject;
+
+import me.confuser.barapi.BarAPI;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -17,6 +21,7 @@ import org.bukkit.block.Block;
 import org.bukkit.material.Dispenser;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -29,11 +34,22 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.xxmicloxx.noteblockapi.NBSDecoder;
+import com.xxmicloxx.noteblockapi.RadioSongPlayer;
+import com.xxmicloxx.noteblockapi.Song;
+import com.xxmicloxx.noteblockapi.SongPlayer;
+
 public class Utils extends JavaPlugin implements Listener {
 
 	private static final Logger log = Logger.getLogger("Minecraft");
 	
 	public static Utils plugin;
+
+	public static int songnumber = -1;
+
+	public boolean barenabled = true;
+	public boolean titleenabled = true;
+	public boolean settingsenabled = true;
 	
 	public void onEnable() {
 		plugin = this;
@@ -55,10 +71,102 @@ public class Utils extends JavaPlugin implements Listener {
 		getCommand("ban").setExecutor(new BanC());
 		getCommand("unban").setExecutor(new BanC());
 		getServer().getPluginManager().registerEvents(this, this);
+		
+		if (Bukkit.getPluginManager().getPlugin("NoteBlockAPI") == null) {
+			log.severe("NoteBlockAPI plugin not found. Disabling Music!");
+			Bukkit.getPluginManager().disablePlugin(this);
+		}
+		if (Bukkit.getPluginManager().getPlugin("BarAPI") == null) {
+			log.warning("BarAPI plugin not found. Some features will not be available in the Music plugin!");
+			barenabled = false;
+		}
+		if (Bukkit.getPluginManager().getPlugin("TitleManager") == null) {
+			log.warning("TitleManager plugin not found. Some features will not be available in the Music plugin!");
+			titleenabled = false;
+		}
+		if (Bukkit.getPluginManager().getPlugin("Settings") == null) {
+			log.warning("Settings plugin not found. Some features will not be available in the Music plugin!");
+			settingsenabled = false;
+		}
+		Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+			public void run() {
+				startLoop();
+			}
+		}, 1200);
 	}
 	
 	public void onDisable() {
 		plugin = null;
+	}
+
+	public void startLoop() {
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+			public void run() {
+				try {
+					songnumber++;
+					String songname = name();
+					Song s = NBSDecoder.parse(new File(getDataFolder() + "/songs", songname + ".nbs"));
+					SongPlayer sp = new RadioSongPlayer(s);
+					sp.setAutoDestroy(true);
+					for (Player online : Bukkit.getServer().getOnlinePlayers()) {
+						Config settings = new Config("../Settings/playerdata", Music.plugin);
+						if (settings.getConfig().getBoolean("music." + online.getUniqueId().toString()) || settings.getConfig().getString("music." + online.getUniqueId().toString()) == null) {
+							sp.addPlayer(online);
+							if (barenabled) {
+								BarAPI.setMessage(online, "§a§lNow Playing §6\"§c§l" + songname + "§6\"", 10);
+							}
+							if (titleenabled) {
+								sendActionbarMessage(online, "§a§lNow Playing §6\"§c§l" + songname + "§6\"");
+							}
+						}
+					}
+					Settings.setCurrentSong(songname);
+					sp.setPlaying(true);
+				} catch (NullPointerException e) {
+					songnumber = 0;
+					String songname = name();
+					Song s = NBSDecoder.parse(new File(getDataFolder() + "/songs", songname + ".nbs"));
+					SongPlayer sp = new RadioSongPlayer(s);
+					sp.setAutoDestroy(true);
+					for (Player online : Bukkit.getServer().getOnlinePlayers()) {
+						Config settings = new Config("../Settings/playerdata", Music.plugin);
+						if (settings.getConfig().getBoolean("music." + online.getUniqueId().toString()) || settings.getConfig().getString("music." + online.getUniqueId().toString()) == null) {
+							sp.addPlayer(online);
+							if (barenabled) {
+								BarAPI.setMessage(online, "§a§lNow Playing §6\"§c§l" + songname + "§6\"", 10);
+							}
+							if (titleenabled) {
+								sendActionbarMessage(online, "§a§lNow Playing §6\"§c§l" + songname + "§6\"");
+							}
+						}
+					}
+					Settings.setCurrentSong(songname);
+					sp.setPlaying(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}, 1200, 9600);
+	}
+
+	private void sendActionbarMessage(Player player, String message) {
+		new ActionbarTitleObject(message).send(player);
+	}
+
+	public static String name() {
+		if (songnumber == -1) {
+			File f = new File(Music.plugin.getDataFolder() + "/songs");
+			List<String> songlist = new ArrayList<String>(Arrays.asList(f.list()));
+			String[] songs = songlist.toArray(new String[0]);
+			String song = songs[0].replace(".nbs", "");
+			return song;
+		} else {
+			File f = new File(Music.plugin.getDataFolder() + "/songs");
+			List<String> songlist = new ArrayList<String>(Arrays.asList(f.list()));
+			String[] songs = songlist.toArray(new String[0]);
+			String song = songs[songnumber].replace(".nbs", "");
+			return song;
+		}
 	}
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
