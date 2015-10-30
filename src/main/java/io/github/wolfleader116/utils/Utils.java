@@ -104,8 +104,8 @@ public class Utils extends JavaPlugin implements Listener {
 		plugin = null;
 	}
 	
-	public boolean isMusic() {
-		if (this.getConfig().getBoolean("EnableMusic")) {
+	public static boolean isMusic() {
+		if (Utils.plugin.getConfig().getBoolean("EnableMusic")) {
 			return true;
 		} else {
 			return false;
