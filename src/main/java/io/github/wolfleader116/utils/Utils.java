@@ -1,6 +1,9 @@
 package io.github.wolfleader116.utils;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Logger;
 
 import io.github.wolfleader116.utils.commands.BanC;
@@ -88,15 +91,25 @@ public class Utils extends JavaPlugin implements Listener {
 			log.warning("Settings plugin not found. Some features will not be available in the Music plugin!");
 			settingsenabled = false;
 		}
-		Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
-			public void run() {
-				startLoop();
-			}
-		}, 1200);
+		if (this.getConfig().getBoolean("EnableMusic")) {
+			Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+				public void run() {
+					startLoop();
+				}
+			}, 1200);
+		}
 	}
 	
 	public void onDisable() {
 		plugin = null;
+	}
+	
+	public boolean isMusic() {
+		if (this.getConfig().getBoolean("EnableMusic")) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public void startLoop() {
@@ -109,7 +122,7 @@ public class Utils extends JavaPlugin implements Listener {
 					SongPlayer sp = new RadioSongPlayer(s);
 					sp.setAutoDestroy(true);
 					for (Player online : Bukkit.getServer().getOnlinePlayers()) {
-						Config settings = new Config("../Settings/playerdata", Music.plugin);
+						Config settings = new Config("../Settings/playerdata", Utils.plugin);
 						if (settings.getConfig().getBoolean("music." + online.getUniqueId().toString()) || settings.getConfig().getString("music." + online.getUniqueId().toString()) == null) {
 							sp.addPlayer(online);
 							if (barenabled) {
@@ -129,7 +142,7 @@ public class Utils extends JavaPlugin implements Listener {
 					SongPlayer sp = new RadioSongPlayer(s);
 					sp.setAutoDestroy(true);
 					for (Player online : Bukkit.getServer().getOnlinePlayers()) {
-						Config settings = new Config("../Settings/playerdata", Music.plugin);
+						Config settings = new Config("../Settings/playerdata", Utils.plugin);
 						if (settings.getConfig().getBoolean("music." + online.getUniqueId().toString()) || settings.getConfig().getString("music." + online.getUniqueId().toString()) == null) {
 							sp.addPlayer(online);
 							if (barenabled) {
@@ -155,13 +168,13 @@ public class Utils extends JavaPlugin implements Listener {
 
 	public static String name() {
 		if (songnumber == -1) {
-			File f = new File(Music.plugin.getDataFolder() + "/songs");
+			File f = new File(Utils.plugin.getDataFolder() + "/songs");
 			List<String> songlist = new ArrayList<String>(Arrays.asList(f.list()));
 			String[] songs = songlist.toArray(new String[0]);
 			String song = songs[0].replace(".nbs", "");
 			return song;
 		} else {
-			File f = new File(Music.plugin.getDataFolder() + "/songs");
+			File f = new File(Utils.plugin.getDataFolder() + "/songs");
 			List<String> songlist = new ArrayList<String>(Arrays.asList(f.list()));
 			String[] songs = songlist.toArray(new String[0]);
 			String song = songs[songnumber].replace(".nbs", "");

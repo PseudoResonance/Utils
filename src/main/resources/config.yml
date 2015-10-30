@@ -8,3 +8,5 @@ Version: 1
 MaxSpawns: 100
 
 InfiniteFireworks: false
+
+EnableMusic: true
