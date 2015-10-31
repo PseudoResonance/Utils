@@ -10,3 +10,5 @@ MaxSpawns: 100
 InfiniteFireworks: false
 
 EnableMusic: true
+
+LastSong: 0

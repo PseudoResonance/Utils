@@ -94,13 +94,14 @@ public class Utils extends JavaPlugin implements Listener {
 		if (this.getConfig().getBoolean("EnableMusic")) {
 			Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
 				public void run() {
-					startLoop();
+					firstLoop();
 				}
-			}, 1200);
+			}, 600);
 		}
 	}
 	
 	public void onDisable() {
+		this.getConfig().set("LastSong", songnumber);
 		plugin = null;
 	}
 	
@@ -111,55 +112,114 @@ public class Utils extends JavaPlugin implements Listener {
 			return false;
 		}
 	}
+	
+	public void endLoop(final SongPlayer sp) {
+		if (sp.isPlaying()) {
+			Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+				public void run() {
+					endLoop(sp);
+				}
+			}, 5);
+		} else {
+			startLoop();
+		}
+	}
 
-	public void startLoop() {
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
-			public void run() {
-				try {
-					songnumber++;
-					String songname = name();
-					Song s = NBSDecoder.parse(new File(getDataFolder() + "/songs", songname + ".nbs"));
-					SongPlayer sp = new RadioSongPlayer(s);
-					sp.setAutoDestroy(true);
-					for (Player online : Bukkit.getServer().getOnlinePlayers()) {
-						Config settings = new Config("../Settings/playerdata", Utils.plugin);
-						if (settings.getConfig().getBoolean("music." + online.getUniqueId().toString()) || settings.getConfig().getString("music." + online.getUniqueId().toString()) == null) {
-							sp.addPlayer(online);
-							if (barenabled) {
-								BarAPI.setMessage(online, "§a§lNow Playing §6\"§c§l" + songname + "§6\"", 10);
-							}
-							if (titleenabled) {
-								sendActionbarMessage(online, "§a§lNow Playing §6\"§c§l" + songname + "§6\"");
-							}
-						}
+	public void firstLoop() {
+		songnumber = this.getConfig().getInt("LastSong");
+		try {
+			songnumber++;
+			String songname = name();
+			Song s = NBSDecoder.parse(new File(getDataFolder() + "/songs", songname + ".nbs"));
+			SongPlayer sp = new RadioSongPlayer(s);
+			sp.setAutoDestroy(true);
+			for (Player online : Bukkit.getServer().getOnlinePlayers()) {
+				Config settings = new Config("../Settings/playerdata", Utils.plugin);
+				if (settings.getConfig().getBoolean("music." + online.getUniqueId().toString()) || settings.getConfig().getString("music." + online.getUniqueId().toString()) == null) {
+					sp.addPlayer(online);
+					if (barenabled) {
+						BarAPI.setMessage(online, "§a§lNow Playing §6\"§c§l" + songname + "§6\"", 10);
 					}
-					Settings.setCurrentSong(songname);
-					sp.setPlaying(true);
-				} catch (NullPointerException e) {
-					songnumber = 0;
-					String songname = name();
-					Song s = NBSDecoder.parse(new File(getDataFolder() + "/songs", songname + ".nbs"));
-					SongPlayer sp = new RadioSongPlayer(s);
-					sp.setAutoDestroy(true);
-					for (Player online : Bukkit.getServer().getOnlinePlayers()) {
-						Config settings = new Config("../Settings/playerdata", Utils.plugin);
-						if (settings.getConfig().getBoolean("music." + online.getUniqueId().toString()) || settings.getConfig().getString("music." + online.getUniqueId().toString()) == null) {
-							sp.addPlayer(online);
-							if (barenabled) {
-								BarAPI.setMessage(online, "§a§lNow Playing §6\"§c§l" + songname + "§6\"", 10);
-							}
-							if (titleenabled) {
-								sendActionbarMessage(online, "§a§lNow Playing §6\"§c§l" + songname + "§6\"");
-							}
-						}
+					if (titleenabled) {
+						sendActionbarMessage(online, "§a§lNow Playing §6\"§c§l" + songname + "§6\"");
 					}
-					Settings.setCurrentSong(songname);
-					sp.setPlaying(true);
-				} catch (Exception e) {
-					e.printStackTrace();
 				}
 			}
-		}, 1200, 9600);
+			Settings.setCurrentSong(songname);
+			sp.setPlaying(true);
+			endLoop(sp);
+		} catch (NullPointerException e) {
+			songnumber = 0;
+			String songname = name();
+			Song s = NBSDecoder.parse(new File(getDataFolder() + "/songs", songname + ".nbs"));
+			SongPlayer sp = new RadioSongPlayer(s);
+			sp.setAutoDestroy(true);
+			for (Player online : Bukkit.getServer().getOnlinePlayers()) {
+				Config settings = new Config("../Settings/playerdata", Utils.plugin);
+				if (settings.getConfig().getBoolean("music." + online.getUniqueId().toString()) || settings.getConfig().getString("music." + online.getUniqueId().toString()) == null) {
+					sp.addPlayer(online);
+					if (barenabled) {
+						BarAPI.setMessage(online, "§a§lNow Playing §6\"§c§l" + songname + "§6\"", 10);
+					}
+					if (titleenabled) {
+						sendActionbarMessage(online, "§a§lNow Playing §6\"§c§l" + songname + "§6\"");
+					}
+				}
+			}
+			Settings.setCurrentSong(songname);
+			sp.setPlaying(true);
+			endLoop(sp);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void startLoop() {
+		try {
+			songnumber++;
+			String songname = name();
+			Song s = NBSDecoder.parse(new File(getDataFolder() + "/songs", songname + ".nbs"));
+			SongPlayer sp = new RadioSongPlayer(s);
+			sp.setAutoDestroy(true);
+			for (Player online : Bukkit.getServer().getOnlinePlayers()) {
+				Config settings = new Config("../Settings/playerdata", Utils.plugin);
+				if (settings.getConfig().getBoolean("music." + online.getUniqueId().toString()) || settings.getConfig().getString("music." + online.getUniqueId().toString()) == null) {
+					sp.addPlayer(online);
+					if (barenabled) {
+						BarAPI.setMessage(online, "§a§lNow Playing §6\"§c§l" + songname + "§6\"", 10);
+					}
+					if (titleenabled) {
+						sendActionbarMessage(online, "§a§lNow Playing §6\"§c§l" + songname + "§6\"");
+					}
+				}
+			}
+			Settings.setCurrentSong(songname);
+			sp.setPlaying(true);
+			endLoop(sp);
+		} catch (NullPointerException e) {
+			songnumber = 0;
+			String songname = name();
+			Song s = NBSDecoder.parse(new File(getDataFolder() + "/songs", songname + ".nbs"));
+			SongPlayer sp = new RadioSongPlayer(s);
+			sp.setAutoDestroy(true);
+			for (Player online : Bukkit.getServer().getOnlinePlayers()) {
+				Config settings = new Config("../Settings/playerdata", Utils.plugin);
+				if (settings.getConfig().getBoolean("music." + online.getUniqueId().toString()) || settings.getConfig().getString("music." + online.getUniqueId().toString()) == null) {
+					sp.addPlayer(online);
+					if (barenabled) {
+						BarAPI.setMessage(online, "§a§lNow Playing §6\"§c§l" + songname + "§6\"", 10);
+					}
+					if (titleenabled) {
+						sendActionbarMessage(online, "§a§lNow Playing §6\"§c§l" + songname + "§6\"");
+					}
+				}
+			}
+			Settings.setCurrentSong(songname);
+			sp.setPlaying(true);
+			endLoop(sp);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void sendActionbarMessage(Player player, String message) {
