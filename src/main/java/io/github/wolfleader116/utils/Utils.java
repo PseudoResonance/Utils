@@ -101,7 +101,6 @@ public class Utils extends JavaPlugin implements Listener {
 	}
 	
 	public void onDisable() {
-		this.getConfig().set("LastSong", songnumber);
 		plugin = null;
 	}
 	
@@ -121,7 +120,11 @@ public class Utils extends JavaPlugin implements Listener {
 				}
 			}, 5);
 		} else {
-			startLoop();
+			Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+				public void run() {
+					startLoop();
+				}
+			}, 100);
 		}
 	}
 
@@ -147,6 +150,8 @@ public class Utils extends JavaPlugin implements Listener {
 			}
 			Settings.setCurrentSong(songname);
 			sp.setPlaying(true);
+			this.getConfig().set("LastSong", songnumber);
+			this.saveConfig();
 			endLoop(sp);
 		} catch (NullPointerException e) {
 			songnumber = 0;
@@ -168,6 +173,8 @@ public class Utils extends JavaPlugin implements Listener {
 			}
 			Settings.setCurrentSong(songname);
 			sp.setPlaying(true);
+			this.getConfig().set("LastSong", songnumber);
+			this.saveConfig();
 			endLoop(sp);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -195,6 +202,8 @@ public class Utils extends JavaPlugin implements Listener {
 			}
 			Settings.setCurrentSong(songname);
 			sp.setPlaying(true);
+			this.getConfig().set("LastSong", songnumber);
+			this.saveConfig();
 			endLoop(sp);
 		} catch (NullPointerException e) {
 			songnumber = 0;
@@ -216,6 +225,8 @@ public class Utils extends JavaPlugin implements Listener {
 			}
 			Settings.setCurrentSong(songname);
 			sp.setPlaying(true);
+			this.getConfig().set("LastSong", songnumber);
+			this.saveConfig();
 			endLoop(sp);
 		} catch (Exception e) {
 			e.printStackTrace();
