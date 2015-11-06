@@ -27,6 +27,8 @@ public class UtilsC implements CommandExecutor {
 					log.info("===---Utils Info---===");
 				} else if (args.length >= 1) {
 					if (args[0].equalsIgnoreCase("help")) {
+						log.info("/tp <Player/X> (Player/X/Y) (Y/Z) (Z/Y-Rotation) (Y-Rotation/X-Rotation) (X-Rotation/World) (World) Teleports players");
+						log.info("/lag Displays server information.");
 						log.info("/utils reload Reloads the config.");
 						log.info("/utils reset Resets the config.");
 						log.info("/utils help Shows this message.");
@@ -59,6 +61,12 @@ public class UtilsC implements CommandExecutor {
 						}
 						if (sender.hasPermission("utils.reload")) {
 							sender.sendMessage(ChatColor.RED + "/utils reload " + ChatColor.AQUA + "Reloads the config.");
+						}
+						if (sender.hasPermission("utils.lag")) {
+							sender.sendMessage(ChatColor.RED + "/lag " + ChatColor.AQUA + "Displays server information.");
+						}
+						if (sender.hasPermission("utils.tp")) {
+							sender.sendMessage(ChatColor.RED + "/tp <Player/X> (Player/X/Y) (Y/Z) (Z/Y-Rotation) (Y-Rotation/X-Rotation) (X-Rotation/World) (World) " + ChatColor.AQUA + "Teleports players.");
 						}
 					} else if (args[0].equalsIgnoreCase("reset")) {
 						if (sender.hasPermission("utils.reset")) {
