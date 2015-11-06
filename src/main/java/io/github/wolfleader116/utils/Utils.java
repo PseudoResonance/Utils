@@ -82,7 +82,6 @@ public class Utils extends JavaPlugin implements Listener {
 		getCommand("unban").setExecutor(new BanC());
 		getCommand("lag").setExecutor(new LagC());
 		getCommand("tp").setExecutor(new TPC());
-		getCommand("tppos").setExecutor(new TPC());
 		getServer().getPluginManager().registerEvents(this, this);
 		
 		if (Bukkit.getPluginManager().getPlugin("NoteBlockAPI") == null) {
