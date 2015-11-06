@@ -1,7 +1,7 @@
 name: Utils
 author: WolfLeader116
 main: io.github.wolfleader116.utils.Utils
-version: 1.3.9
+version: 1.3.10
 description: Utils plugin.
 depend: [WolfAPI,NoteBlockAPI]
 softdepend: [Settings,BarAPI,TitleManager]
@@ -26,9 +26,7 @@ commands:
     description: Server information command.
     aliases: [gc,mem,memory,uptime,tps,entities]
   tp:
-    description: Player to player tp command.
-  tppos:
-    description: Player to coordinates tp command.
+    description: Tp command.
 permissions:
   utils.*:
     description: Gives the player access to all utils features.
