@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import io.github.wolfleader116.utils.commands.BanC;
 import io.github.wolfleader116.utils.commands.KickC;
+import io.github.wolfleader116.utils.commands.LagC;
 import io.github.wolfleader116.utils.commands.MuteC;
 import io.github.wolfleader116.utils.commands.SpawnMobC;
 import io.github.wolfleader116.utils.commands.UtilsC;
@@ -49,6 +50,8 @@ public class Utils extends JavaPlugin implements Listener {
 	public static Utils plugin;
 
 	public static int songnumber = -1;
+	
+	public final long startup = System.currentTimeMillis() - 10800000;
 
 	public boolean barenabled = true;
 	public boolean titleenabled = true;
@@ -56,6 +59,7 @@ public class Utils extends JavaPlugin implements Listener {
 	
 	public void onEnable() {
 		plugin = this;
+		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new TPS(), 100L, 1L);
 		this.saveDefaultConfig();
 		if (this.getConfig().getInt("Version") != 1) {
 			File config = new File(this.getDataFolder(), "config.yml");
@@ -73,6 +77,7 @@ public class Utils extends JavaPlugin implements Listener {
 		getCommand("unmute").setExecutor(new MuteC());
 		getCommand("ban").setExecutor(new BanC());
 		getCommand("unban").setExecutor(new BanC());
+		getCommand("lag").setExecutor(new LagC());
 		getServer().getPluginManager().registerEvents(this, this);
 		
 		if (Bukkit.getPluginManager().getPlugin("NoteBlockAPI") == null) {
