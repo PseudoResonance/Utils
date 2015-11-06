@@ -26,7 +26,7 @@ public class LagC implements CommandExecutor {
 		if (cmd.getName().equalsIgnoreCase("lag")) {
 			if (sender instanceof Player) {
 				Player p = (Player) sender;
-				if (sender.hasPermission("utils.mute")) {
+				if (sender.hasPermission("utils.lag")) {
 					sender.sendMessage(ChatColor.DARK_AQUA + "===---" + ChatColor.GOLD + "Utils Lag Report" + ChatColor.DARK_AQUA + "---===");
 					SimpleDateFormat sdfshorthh = new SimpleDateFormat("HH");
 					SimpleDateFormat sdfshortmm = new SimpleDateFormat("mm");
@@ -67,14 +67,56 @@ public class LagC implements CommandExecutor {
 						catch (ClassCastException ex) {
 							log.severe("World " + w + " seems to be corrupted!");
 						}
-						sender.sendMessage(ChatColor.AQUA + "Worlds:");
 						sender.sendMessage(ChatColor.AQUA + w.getName() + ": Type: " + ChatColor.RED  + worldType + ChatColor.AQUA + " Loaded Chunks: " + ChatColor.RED  + w.getLoadedChunks().length + ChatColor.AQUA  + " Entities: " + ChatColor.RED  + w.getEntities().size() + ChatColor.AQUA  + " Tile Entities: " + ChatColor.RED + tileEntities);
 					}
+					sender.sendMessage(ChatColor.AQUA + "Worlds:");
 				} else {
 					Errors.sendError(Errors.NO_PERMISSION, p, "Utils");
 				}
 			} else {
-				
+				SimpleDateFormat sdfshorthh = new SimpleDateFormat("HH");
+				SimpleDateFormat sdfshortmm = new SimpleDateFormat("mm");
+				SimpleDateFormat sdfshortss = new SimpleDateFormat("ss");
+				Long now = System.currentTimeMillis() - 79200000;
+				Long difference = now - Utils.plugin.startup;
+				Date datedifference = new Date(difference);
+				String uptime = String.valueOf(sdfshorthh.format(datedifference)) + "Hours" + String.valueOf(sdfshortmm.format(datedifference)) + "Minutes" + String.valueOf(sdfshortss.format(datedifference)) + "Seconds";
+				List<World> worlds = Bukkit.getServer().getWorlds();
+				for (World w : worlds) {
+					String worldType = "World";
+					switch (w.getEnvironment()) {
+					case NETHER:
+						worldType = "Nether";
+						break;
+					case THE_END:
+						worldType = "The End";
+						break;
+					case NORMAL:
+						worldType = "Overworld";
+						break;
+					default:
+						worldType = "Unknown";
+						break;
+					}
+					int tileEntities = 0;
+					try {
+						for (Chunk chunk : w.getLoadedChunks()) {
+							tileEntities += chunk.getTileEntities().length;
+						}
+					}
+					catch (ClassCastException ex) {
+						log.severe("World " + w + " seems to be corrupted!");
+					}
+					log.info(w.getName() + ": Type: " + worldType + " Loaded Chunks: " + w.getLoadedChunks().length + " Entities: " + w.getEntities().size() + " Tile Entities: " + tileEntities);
+				}
+				log.info("Worlds:");
+				log.info("Available Processors: " +  Runtime.getRuntime().availableProcessors());
+				log.info("Total Memory: " +  Runtime.getRuntime().totalMemory());
+				log.info("Free Memory: " +  Runtime.getRuntime().freeMemory());
+				log.info("Maximum Memory: " +  Runtime.getRuntime().maxMemory());
+				log.info("TPS: " + TPS.getTPS() + " TPS Percentage: " + String.valueOf(Math.round((1.0D - TPS.getTPS() / 20.0D) * 100.0D)));
+				log.info("Server Uptime: " +  uptime);
+				log.info("===---Utils Lag Report---===");
 			}
 		}
 		return false;

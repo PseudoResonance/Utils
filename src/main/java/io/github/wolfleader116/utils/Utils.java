@@ -57,6 +57,8 @@ public class Utils extends JavaPlugin implements Listener {
 	public boolean titleenabled = true;
 	public boolean settingsenabled = true;
 	
+	private static SongPlayer songplayer;
+	
 	public void onEnable() {
 		plugin = this;
 		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new TPS(), 100L, 1L);
@@ -101,7 +103,7 @@ public class Utils extends JavaPlugin implements Listener {
 				public void run() {
 					firstLoop();
 				}
-			}, 600);
+			}, 200);
 		}
 	}
 	
@@ -158,6 +160,7 @@ public class Utils extends JavaPlugin implements Listener {
 			Settings.setCurrentSong(songname);
 			sp.setPlaying(true);
 			endLoop(sp);
+			songplayer = sp;
 		} catch (NullPointerException e) {
 			songnumber = 0;
 			String songname = name();
@@ -179,6 +182,7 @@ public class Utils extends JavaPlugin implements Listener {
 			Settings.setCurrentSong(songname);
 			sp.setPlaying(true);
 			endLoop(sp);
+			songplayer = sp;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -206,6 +210,7 @@ public class Utils extends JavaPlugin implements Listener {
 			Settings.setCurrentSong(songname);
 			sp.setPlaying(true);
 			endLoop(sp);
+			songplayer = sp;
 		} catch (NullPointerException e) {
 			songnumber = 0;
 			String songname = name();
@@ -227,6 +232,7 @@ public class Utils extends JavaPlugin implements Listener {
 			Settings.setCurrentSong(songname);
 			sp.setPlaying(true);
 			endLoop(sp);
+			songplayer = sp;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -254,13 +260,19 @@ public class Utils extends JavaPlugin implements Listener {
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerJoin(AsyncPlayerPreLoginEvent e) {
+		final String pname = e.getName();
 		Config c = new Config("bannedplayers", Utils.plugin);
 		Config data = new Config("playerdata", Utils.plugin);
-		data.getConfig().set(e.getName(), e.getUniqueId().toString());
+		data.getConfig().set(pname, e.getUniqueId().toString());
 		data.save();
 		if (c.getConfig().contains(e.getUniqueId().toString())) {
 			e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED, c.getConfig().getString(e.getUniqueId().toString()));
 		}
+		Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+			public void run() {
+				songplayer.addPlayer(Bukkit.getServer().getPlayer(pname));
+			}
+		}, 20);
 	}
 	
 	@EventHandler(priority = EventPriority.HIGHEST)

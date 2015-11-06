@@ -1,7 +1,7 @@
 name: Utils
 author: WolfLeader116
 main: io.github.wolfleader116.utils.Utils
-version: 1.3.5
+version: 1.3.6
 description: Utils plugin.
 depend: [WolfAPI,NoteBlockAPI]
 softdepend: [Settings,BarAPI,TitleManager]
@@ -22,6 +22,9 @@ commands:
     description: Player mute command.
   unmute:
     description: Player unmute command.
+  lag:
+    description: Server information command.
+    aliases: [gc,mem,memory,uptime,tps,entities]
 permissions:
   utils.*:
     description: Gives the player access to all utils features.
@@ -41,6 +44,7 @@ permissions:
       utils.unmute: true
       utils.mute.exempt: true
       utils.mute.exempt.override: true
+      utils.lag: true
   utils.reset:
     description: Allows the player to reset the config.
   utils.reload:
@@ -71,3 +75,5 @@ permissions:
     description: Allows the player to have mute exempt permissions.
   utils.mute.exempt.override:
     description: Allows the player to override mute exempt permissions.
+  utils.lag:
+    description: Allows the player to view server information.
