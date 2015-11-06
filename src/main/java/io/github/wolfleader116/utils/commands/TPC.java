@@ -25,7 +25,7 @@ public class TPC implements CommandExecutor {
 					if (args.length == 0) {
 						WolfAPI.message("You need to add a location or player to tp to!", p, "Utils");
 					} else if (args.length == 1) {
-						if (isNumber(args[1])) {
+						if (isNumber(args[0])) {
 							WolfAPI.message("You need to add a location to tp to!", p, "Utils");
 						} else {
 							if (Bukkit.getServer().getPlayer(args[0]) != null) {
