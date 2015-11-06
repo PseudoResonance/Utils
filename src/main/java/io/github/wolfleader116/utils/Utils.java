@@ -101,6 +101,8 @@ public class Utils extends JavaPlugin implements Listener {
 	}
 	
 	public void onDisable() {
+		this.getConfig().set("LastSong", songnumber);
+		this.saveConfig();
 		plugin = null;
 	}
 	
@@ -150,8 +152,6 @@ public class Utils extends JavaPlugin implements Listener {
 			}
 			Settings.setCurrentSong(songname);
 			sp.setPlaying(true);
-			this.getConfig().set("LastSong", songnumber);
-			this.saveConfig();
 			endLoop(sp);
 		} catch (NullPointerException e) {
 			songnumber = 0;
@@ -173,8 +173,6 @@ public class Utils extends JavaPlugin implements Listener {
 			}
 			Settings.setCurrentSong(songname);
 			sp.setPlaying(true);
-			this.getConfig().set("LastSong", songnumber);
-			this.saveConfig();
 			endLoop(sp);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -202,8 +200,6 @@ public class Utils extends JavaPlugin implements Listener {
 			}
 			Settings.setCurrentSong(songname);
 			sp.setPlaying(true);
-			this.getConfig().set("LastSong", songnumber);
-			this.saveConfig();
 			endLoop(sp);
 		} catch (NullPointerException e) {
 			songnumber = 0;
@@ -225,8 +221,6 @@ public class Utils extends JavaPlugin implements Listener {
 			}
 			Settings.setCurrentSong(songname);
 			sp.setPlaying(true);
-			this.getConfig().set("LastSong", songnumber);
-			this.saveConfig();
 			endLoop(sp);
 		} catch (Exception e) {
 			e.printStackTrace();

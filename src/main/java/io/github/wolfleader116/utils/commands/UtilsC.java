@@ -39,6 +39,8 @@ public class UtilsC implements CommandExecutor {
 					} else if (args[0].equalsIgnoreCase("reload")) {
 						Utils.plugin.reloadConfig();
 						log.info("Reloaded the config!");
+					} else {
+						log.info(args[0] + " is not a possible subcommand. Use /utils help for more.");
 					}
 				}
 			} else {
@@ -73,6 +75,8 @@ public class UtilsC implements CommandExecutor {
 						} else {
 							Errors.sendError(Errors.NO_PERMISSION, p, "Utils");
 						}
+					} else {
+						Errors.sendError(Errors.CUSTOM, p, "Utils", args[0] + " is not a possible subcommand. Use /utils help for more.");
 					}
 				}
 			}
