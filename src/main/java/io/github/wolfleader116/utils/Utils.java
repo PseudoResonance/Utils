@@ -13,6 +13,7 @@ import io.github.wolfleader116.utils.commands.MuteC;
 import io.github.wolfleader116.utils.commands.SpawnMobC;
 import io.github.wolfleader116.utils.commands.TPC;
 import io.github.wolfleader116.utils.commands.UtilsC;
+import io.github.wolfleader116.utils.commands.WeatherC;
 import io.github.wolfleader116.wolfapi.WolfAPI;
 import io.github.wolfleader116.settings.Settings;
 import io.puharesource.mc.titlemanager.api.ActionbarTitleObject;
@@ -82,6 +83,7 @@ public class Utils extends JavaPlugin implements Listener {
 		getCommand("unban").setExecutor(new BanC());
 		getCommand("lag").setExecutor(new LagC());
 		getCommand("tp").setExecutor(new TPC());
+		getCommand("weather").setExecutor(new WeatherC());
 		getServer().getPluginManager().registerEvents(this, this);
 		
 		if (Bukkit.getPluginManager().getPlugin("NoteBlockAPI") == null) {
