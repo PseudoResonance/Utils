@@ -1,7 +1,7 @@
 name: Utils
 author: WolfLeader116
 main: io.github.wolfleader116.utils.Utils
-version: 1.3.13
+version: 1.3.14
 description: Utils plugin.
 depend: [WolfAPI,NoteBlockAPI]
 softdepend: [Settings,BarAPI,TitleManager]
@@ -27,6 +27,8 @@ commands:
     aliases: [gc,mem,memory,uptime,tps,entities]
   tp:
     description: Tp command.
+  weather:
+    description: Sets and gets weather.
 permissions:
   utils.*:
     description: Gives the player access to all utils features.
@@ -48,6 +50,7 @@ permissions:
       utils.mute.exempt.override: true
       utils.lag: true
       utils.tp: true
+      utils.weather: true
   utils.reset:
     description: Allows the player to reset the config.
   utils.reload:
@@ -82,3 +85,5 @@ permissions:
     description: Allows the player to view server information.
   utils.tp:
     description: Allows the player to tp to any coordinates or player.
+  utils.weather:
+    description: Allows the player to set and get the weather.

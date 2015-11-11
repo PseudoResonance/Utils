@@ -27,6 +27,7 @@ public class UtilsC implements CommandExecutor {
 					log.info("===---Utils Info---===");
 				} else if (args.length >= 1) {
 					if (args[0].equalsIgnoreCase("help")) {
+						log.info("/weather (world) (clear/rain/thunder) (duration) Sets or gets the weather in the specified world.");
 						log.info("/tp <Player/X> (Player/X/Y) (Y/Z) (Z/Y-Rotation) (Y-Rotation/X-Rotation) (X-Rotation/World) (World) Teleports players");
 						log.info("/lag Displays server information.");
 						log.info("/utils reload Reloads the config.");
@@ -67,6 +68,9 @@ public class UtilsC implements CommandExecutor {
 						}
 						if (sender.hasPermission("utils.tp")) {
 							sender.sendMessage(ChatColor.RED + "/tp <Player/X> (Player/X/Y) (Y/Z) (Z/Y-Rotation) (Y-Rotation/X-Rotation) (X-Rotation/World) (World) " + ChatColor.AQUA + "Teleports players.");
+						}
+						if (sender.hasPermission("utils.weather")) {
+							sender.sendMessage(ChatColor.RED + "/weather (clear/rain/thunder) (duration/world) " + ChatColor.AQUA + "Teleports players.");
 						}
 					} else if (args[0].equalsIgnoreCase("reset")) {
 						if (sender.hasPermission("utils.reset")) {

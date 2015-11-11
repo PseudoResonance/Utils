@@ -100,6 +100,7 @@ public class Utils extends JavaPlugin implements Listener {
 			log.warning("Settings plugin not found. Some features will not be available in the Music plugin!");
 			settingsenabled = false;
 		}
+		songnumber = this.getConfig().getInt("LastSong");
 		if (this.getConfig().getBoolean("EnableMusic")) {
 			Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
 				public void run() {
@@ -140,31 +141,7 @@ public class Utils extends JavaPlugin implements Listener {
 	}
 
 	public void firstLoop() {
-		songnumber = this.getConfig().getInt("LastSong");
 		try {
-			songnumber++;
-			String songname = name();
-			Song s = NBSDecoder.parse(new File(getDataFolder() + "/songs", songname + ".nbs"));
-			SongPlayer sp = new RadioSongPlayer(s);
-			sp.setAutoDestroy(true);
-			for (Player online : Bukkit.getServer().getOnlinePlayers()) {
-				Config settings = new Config("../Settings/playerdata", Utils.plugin);
-				if (settings.getConfig().getBoolean("music." + online.getUniqueId().toString()) || settings.getConfig().getString("music." + online.getUniqueId().toString()) == null) {
-					sp.addPlayer(online);
-					if (barenabled) {
-						BarAPI.setMessage(online, "§a§lNow Playing §6\"§c§l" + songname + "§6\"", 10);
-					}
-					if (titleenabled) {
-						sendActionbarMessage(online, "§a§lNow Playing §6\"§c§l" + songname + "§6\"");
-					}
-				}
-			}
-			Settings.setCurrentSong(songname);
-			sp.setPlaying(true);
-			endLoop(sp);
-			songplayer = sp;
-		} catch (NullPointerException e) {
-			songnumber = 0;
 			String songname = name();
 			Song s = NBSDecoder.parse(new File(getDataFolder() + "/songs", songname + ".nbs"));
 			SongPlayer sp = new RadioSongPlayer(s);
@@ -186,7 +163,27 @@ public class Utils extends JavaPlugin implements Listener {
 			endLoop(sp);
 			songplayer = sp;
 		} catch (Exception e) {
-			e.printStackTrace();
+			songnumber = 0;
+			String songname = name();
+			Song s = NBSDecoder.parse(new File(getDataFolder() + "/songs", songname + ".nbs"));
+			SongPlayer sp = new RadioSongPlayer(s);
+			sp.setAutoDestroy(true);
+			for (Player online : Bukkit.getServer().getOnlinePlayers()) {
+				Config settings = new Config("../Settings/playerdata", Utils.plugin);
+				if (settings.getConfig().getBoolean("music." + online.getUniqueId().toString()) || settings.getConfig().getString("music." + online.getUniqueId().toString()) == null) {
+					sp.addPlayer(online);
+					if (barenabled) {
+						BarAPI.setMessage(online, "§a§lNow Playing §6\"§c§l" + songname + "§6\"", 10);
+					}
+					if (titleenabled) {
+						sendActionbarMessage(online, "§a§lNow Playing §6\"§c§l" + songname + "§6\"");
+					}
+				}
+			}
+			Settings.setCurrentSong(songname);
+			sp.setPlaying(true);
+			endLoop(sp);
+			songplayer = sp;
 		}
 	}
 
@@ -213,7 +210,7 @@ public class Utils extends JavaPlugin implements Listener {
 			sp.setPlaying(true);
 			endLoop(sp);
 			songplayer = sp;
-		} catch (NullPointerException e) {
+		} catch (Exception e) {
 			songnumber = 0;
 			String songname = name();
 			Song s = NBSDecoder.parse(new File(getDataFolder() + "/songs", songname + ".nbs"));
@@ -235,8 +232,6 @@ public class Utils extends JavaPlugin implements Listener {
 			sp.setPlaying(true);
 			endLoop(sp);
 			songplayer = sp;
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 
