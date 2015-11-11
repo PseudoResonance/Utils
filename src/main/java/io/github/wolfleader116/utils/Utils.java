@@ -282,11 +282,21 @@ public class Utils extends JavaPlugin implements Listener {
 		data.save();
 		if (c.getConfig().contains(e.getPlayer().getUniqueId().toString())) {
 			WolfAPI.message(c.getConfig().getString(e.getPlayer().getUniqueId().toString()), e.getPlayer(), "Utils");
+			e.setCancelled(true);
 		}
 	}
 	
 	public static boolean isBanned(String uuid) {
 		Config c = new Config("bannedplayers", Utils.plugin);
+		if (c.getConfig().contains(uuid)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public static boolean isMuted(String uuid) {
+		Config c = new Config("mutedplayers", Utils.plugin);
 		if (c.getConfig().contains(uuid)) {
 			return true;
 		} else {
